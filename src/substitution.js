@@ -5,9 +5,36 @@
 
 const substitutionModule = (function () {
   // you can add any code you want within this function scope
-
+  
+let standardAlphabet = 'abcdefghijklmnopqrstuvwxyz'
+standardAlphabet = standardAlphabet.split("")
+const cipher = {};
   function substitution(input, alphabet, encode = true) {
     // your solution code here
+    const checkForRepeats = new Set(alphabet)
+    if(!alphabet || alphabet.length < 26 || checkForRepeats.size < 26) {
+      return false;
+    };
+    alphabet = alphabet.split("");
+    if(encode === true) {
+      for(let i = 0; i < 26; i ++) {
+        cipher[standardAlphabet[i]] = alphabet[i];
+      };
+    } else {
+      for(let i = 0; i < 26; i ++) {
+        cipher[alphabet[i]] = standardAlphabet[i];
+      };
+    };
+    input = input.toLowerCase();
+    input = input.split("");
+    const result = input.map((letter) => {
+      if(letter === " ") {
+        return " "
+      } else {
+        return cipher[letter];
+      };
+    });
+    return result.join("");
   }
 
   return {
